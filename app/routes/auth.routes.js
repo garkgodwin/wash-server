@@ -1,0 +1,18 @@
+const authJwt = require("../middlewares/authJWT");
+const check = require("../middlewares/check");
+const controller = require("../controllers/auth.controller");
+let router = require("express").Router();
+
+module.exports = function (app) {
+  router.get(
+    "/register",
+    [
+      check.checkName,
+      check.checkUsername,
+      check.checkEmail,
+      check.checkMobileNumber,
+    ],
+    controller.register
+  );
+  app.use("/api/v1/auth", router);
+};
