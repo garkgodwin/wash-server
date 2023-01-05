@@ -1,0 +1,11 @@
+TODO:
+
+1. Create .env file named: .env 
+  in your root directory
+2. Copy and paste the folllowing on that file
+
+
+ATLAS_URI=mongodb+srv://garkgodwin:dj914r67qvyPnPzy@cluster0.hs1d1.mongodb.net/?retryWrites=true&w=majority
+SERVER_PORT=8000
+ENV=TST
+SECRET_KEY=somethinghasbeenstarted
