@@ -14,5 +14,8 @@ module.exports = function (app) {
     ],
     controller.register
   );
+
+  router.post("/login", [check.checkLoginInputs], controller.login);
+
   app.use("/api/v1/auth", router);
 };

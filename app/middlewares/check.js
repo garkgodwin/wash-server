@@ -76,3 +76,24 @@ exports.checkMobileNumber = async (req, res, next) => {
   }
   return next();
 };
+
+//? main
+exports.checkLoginInputs = (req, res, next) => {
+  const body = req.body;
+  if (!body) {
+    return res.status(404).send({
+      message: "There are no inputs sent to the server.",
+    });
+  }
+  if (body.username === "") {
+    return res.status(409).send({
+      message: "There is no username sent to the server.",
+    });
+  }
+  if (body.password === "") {
+    return res.status(409).send({
+      message: "There is no password sent to the server.",
+    });
+  }
+  return next();
+};
