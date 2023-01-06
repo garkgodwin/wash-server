@@ -7,11 +7,11 @@ const jwt = require("jsonwebtoken");
 
 exports.register = async (req, res) => {
   const body = req.body;
-  let user = body.user;
 
   const otp = generate.generateOtp();
-  const hashed = generate.generateHashedPassword(user.password);
+  const hashed = generate.generateHashedPassword(body.password);
 
+  let user = body;
   user = {
     ...user,
     password: hashed,
@@ -31,6 +31,7 @@ exports.register = async (req, res) => {
       "Successfully registered, please login and enter the otp sent to your mobile number",
   });
 };
+
 exports.login = async (req, res) => {
   const body = req.body;
 
