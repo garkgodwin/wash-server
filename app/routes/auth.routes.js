@@ -4,7 +4,7 @@ const controller = require("../controllers/auth.controller");
 let router = require("express").Router();
 
 module.exports = function (app) {
-  router.get(
+  router.post(
     "/register",
     [
       check.checkName,
