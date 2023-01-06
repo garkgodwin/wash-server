@@ -3,6 +3,7 @@ const UserModel = db.users;
 
 exports.checkName = async (req, res, next) => {
   const body = req.body;
+  console.log(body);
   const user = body.user;
   if (user.name === null || user.name === "") {
     return res
