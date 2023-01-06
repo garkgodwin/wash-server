@@ -15,7 +15,7 @@ exports.register = async (req, res) => {
   user = {
     ...user,
     password: hashed,
-    otp: otp,
+    otpActivated: otp,
   };
   const newUser = UserModel(user);
   const newNotif = NotificationModel({

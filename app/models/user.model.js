@@ -14,7 +14,11 @@ module.exports = ({ Schema, model }) => {
         type: String,
       },
       role: Number,
-      otp: {
+      otpActivated: {
+        type: String,
+        default: null,
+      },
+      otpForgotten: {
         type: String,
         default: null,
       },
