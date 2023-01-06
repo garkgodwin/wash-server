@@ -39,25 +39,6 @@ exports.checkUsername = async (req, res, next) => {
   return next();
 };
 
-exports.checkEmail = async (req, res, next) => {
-  const body = req.body;
-  const user = body.user;
-  if (user.email === null || user.email === "") {
-    return res
-      .status(409)
-      .send({ message: "Please make sure to enter the email." });
-  }
-  const exists = await UserModel.findOne({
-    email: user.email,
-  }).exec();
-  if (exists) {
-    return res
-      .status(409)
-      .send({ message: `The email ${user.email} has already been used.` });
-  }
-  return next();
-};
-
 exports.checkMobileNumber = async (req, res, next) => {
   const body = req.body;
   const user = body.user;

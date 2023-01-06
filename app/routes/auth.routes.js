@@ -6,12 +6,7 @@ let router = require("express").Router();
 module.exports = function (app) {
   router.post(
     "/register",
-    [
-      check.checkName,
-      check.checkUsername,
-      check.checkEmail,
-      check.checkMobileNumber,
-    ],
+    [check.checkName, check.checkUsername, check.checkMobileNumber],
     controller.register
   );
 
