@@ -44,7 +44,7 @@ exports.login = async (req, res) => {
     });
   }
 
-  const passwordIsValid = bcrypt.compareSync(b.password, user.password);
+  const passwordIsValid = bcrypt.compareSync(body.password, user.password);
   if (!passwordIsValid) {
     return res.status(409).send({
       message: "Invalid credentials",
