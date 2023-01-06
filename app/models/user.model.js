@@ -7,9 +7,6 @@ module.exports = ({ Schema, model }) => {
       username: {
         type: String,
       },
-      email: {
-        type: String,
-      },
       mobileNumber: {
         type: String,
       },
@@ -20,6 +17,9 @@ module.exports = ({ Schema, model }) => {
       otp: {
         type: String,
         default: null,
+      },
+      address: {
+        type: String,
       },
     },
     { timestamps: true }
