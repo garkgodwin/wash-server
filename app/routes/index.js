@@ -3,4 +3,5 @@ module.exports = (app) => {
     res.send({ message: "Welcome to the API version 1.0" });
   });
   require("./auth.routes")(app);
+  require("./booking.routes")(app);
 };
