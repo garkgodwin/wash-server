@@ -25,6 +25,12 @@ module.exports = ({ Schema, model }) => {
       address: {
         type: String,
       },
+      latitude: {
+        type: Number,
+      },
+      longitude: {
+        type: Number,
+      },
     },
     { timestamps: true }
   );
