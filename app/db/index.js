@@ -9,6 +9,8 @@ const connect = (mongoose) => {
     .then((data) => {
       const dbName = data.mongoose.connections[0].name;
       console.log("Server connected with the database: " + dbName);
+      //? SEED
+      require("../controllers/laundry.controller").createLaundyInfo();
     })
     .catch((error) => {
       console.log(
