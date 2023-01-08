@@ -4,6 +4,8 @@ const controller = require("../controllers/auth.controller");
 let router = require("express").Router();
 
 module.exports = function (app) {
+  router.get("/profile", [authJwt.verifyToken], controller.getUser);
+
   router.post(
     "/register",
     [check.checkName, check.checkUsername, check.checkMobileNumber],

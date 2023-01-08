@@ -45,10 +45,7 @@ exports.login = async (req, res) => {
     });
   }
 
-  const passwordIsValid = bcrypt.compareSync(
-    body.password,
-    user.password
-  );
+  const passwordIsValid = bcrypt.compareSync(body.password, user.password);
   if (!passwordIsValid) {
     return res.status(409).send({
       message: "Invalid credentials",
@@ -63,5 +60,15 @@ exports.login = async (req, res) => {
     message: "Login successful",
     token: token,
     user: user,
+  });
+};
+
+exports.getUser = async (req, res) => {
+  const id = req.userId;
+  const user = await UserModel.findById(id).exec();
+
+  return res.status(200).send({
+    message: "Successfully fetched your profile info",
+    data: user,
   });
 };
