@@ -65,6 +65,11 @@ exports.login = async (req, res) => {
 
 exports.getUser = async (req, res) => {
   const id = req.userId;
+  if (!id) {
+    return res.status(404).send({
+      message: "User is not found",
+    });
+  }
   const user = await UserModel.findById(id).exec();
 
   if (!user) {
