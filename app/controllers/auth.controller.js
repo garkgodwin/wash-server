@@ -64,6 +64,7 @@ exports.login = async (req, res) => {
 };
 
 exports.getUser = async (req, res) => {
+  console.log("GOT HERE CONTROLLER");
   const id = req.userId;
   if (!id) {
     return res.status(404).send({
