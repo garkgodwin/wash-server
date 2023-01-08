@@ -4,6 +4,7 @@ const NotificationModel = db.notifications;
 const generate = require("../helpers/generate");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { SECRET_KEY } = require("../constants/configs");
 
 exports.register = async (req, res) => {
   const body = req.body;
@@ -44,7 +45,10 @@ exports.login = async (req, res) => {
     });
   }
 
-  const passwordIsValid = bcrypt.compareSync(body.password, user.password);
+  const passwordIsValid = bcrypt.compareSync(
+    body.password,
+    user.password
+  );
   if (!passwordIsValid) {
     return res.status(409).send({
       message: "Invalid credentials",
