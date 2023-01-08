@@ -67,6 +67,11 @@ exports.getUser = async (req, res) => {
   const id = req.userId;
   const user = await UserModel.findById(id).exec();
 
+  if (!user) {
+    return res.status(404).send({
+      message: "User is not found",
+    });
+  }
   return res.status(200).send({
     message: "Successfully fetched your profile info",
     data: user,
