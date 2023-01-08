@@ -81,6 +81,6 @@ exports.getUser = async (req, res) => {
   console.log(user);
   return res.status(200).send({
     message: "Successfully fetched your profile info",
-    data: user,
+    user: user,
   });
 };
