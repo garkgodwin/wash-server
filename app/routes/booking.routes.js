@@ -4,7 +4,7 @@ const controller = require("../controllers/booking.controller");
 let router = require("express").Router();
 
 module.exports = function (app) {
-  router.get("/", controller.getBookings);
-  router.post("/book", controller.createBooking);
+  router.get("/", [authJwt.verifyToken], controller.getBookings);
+  router.post("/book", [authJwt.verifyToken], controller.createBooking);
   app.use("/api/v1/bookings", router);
 };

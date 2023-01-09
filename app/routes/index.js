@@ -5,4 +5,5 @@ module.exports = (app) => {
   require("./auth.routes")(app);
   require("./booking.routes")(app);
   require("./laundry.routes")(app);
+  require("./notification.routes")(app);
 };

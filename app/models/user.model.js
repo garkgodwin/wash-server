@@ -26,10 +26,10 @@ module.exports = ({ Schema, model }) => {
         type: String,
       },
       latitude: {
-        type: Number,
+        type: String,
       },
       longitude: {
-        type: Number,
+        type: String,
       },
     },
     { timestamps: true }

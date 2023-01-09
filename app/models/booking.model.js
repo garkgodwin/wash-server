@@ -26,6 +26,14 @@ module.exports = ({ Schema, model }) => {
       total: {
         type: Number,
       },
+      paymentStatus: {
+        type: Boolean,
+        default: false,
+      },
+      status: {
+        type: Number, // 1 - pick-up, 2 - washing, 3 - preparing for delivery, 4 - out for delivery, 5- delivered
+        required: true,
+      },
     },
     { timestamps: true }
   );
