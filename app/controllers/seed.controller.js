@@ -36,10 +36,11 @@ const createAdmin = async () => {
     username: "admin",
     password: generateHashedPassword("admin"),
     role: 1,
+    mobileNumber: "09915058720",
     otpActivated: null,
     otpForgotten: null,
     address: "Somewhere down the road",
-    lattitude: "",
+    latitude: "",
     longitude: "",
   });
   await newAdmin.save();

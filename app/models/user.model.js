@@ -3,17 +3,24 @@ module.exports = ({ Schema, model }) => {
     {
       name: {
         type: String,
+        required: true,
       },
       username: {
         type: String,
+        required: true,
       },
       mobileNumber: {
         type: String,
+        required: true,
       },
       password: {
         type: String,
+        required: true,
       },
-      role: Number,
+      role: {
+        type: Number,
+        required: true,
+      },
       otpActivated: {
         type: String,
         default: null,
@@ -28,9 +35,7 @@ module.exports = ({ Schema, model }) => {
       latitude: {
         type: String,
       },
-      longitude: {
-        type: String,
-      },
+      longitude: {},
     },
     { timestamps: true }
   );

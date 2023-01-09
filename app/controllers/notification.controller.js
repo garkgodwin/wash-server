@@ -13,6 +13,7 @@ exports.getUnsentNotification = async (req, res) => {
   const data = await NotificationModel.findOne({
     sent: false,
   }).exec();
+  console.log(data);
   return res.status(200).send({
     message: "Successfully fetched unsent notification",
     notification: data,
