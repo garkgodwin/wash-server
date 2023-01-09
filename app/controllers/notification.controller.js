@@ -9,14 +9,13 @@ exports.getAllNotifications = async (req, res) => {
   });
 };
 
-exports.getUnsentNotification = async (req, res) => {
-  const data = await NotificationModel.findOne({
+exports.getUnsentNotifications = async (req, res) => {
+  const data = await NotificationModel.find({
     sent: false,
   }).exec();
-  console.log(data);
   return res.status(200).send({
     message: "Successfully fetched unsent notification",
-    notification: data,
+    notifications: data,
   });
 };
 

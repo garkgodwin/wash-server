@@ -42,14 +42,13 @@ module.exports = ({ Schema, model }) => {
         type: Number,
         required: true,
       },
-      paymentStatus: {
+      paid: {
         type: Boolean,
         required: true,
         default: false,
       },
       status: {
         type: Number, // 1 - pick-up, 2 - washing, 3 - preparing for delivery, 4 - out for delivery, 5- delivered
-        required: true,
         required: true,
       },
     },
