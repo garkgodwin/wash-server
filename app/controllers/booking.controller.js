@@ -23,7 +23,24 @@ exports.getBookings = async (req, res) => {
 
   return res.status(200).send({
     message: "Successfully fetched the bookings",
-    data: bookings,
+    bookings: bookings,
+  });
+};
+
+exports.getDetailedBooking = async (req, res) => {
+  const booking = await BookingModel.findById(req.params.bookingID)
+    .populate({
+      path: "customer",
+    })
+    .exec();
+  if (!booking) {
+    return req.status(404).send({
+      message: "Booking not found",
+    });
+  }
+  return res.status(200).send({
+    message: "Successfully fetched the booking details",
+    booking: booking,
   });
 };
 

@@ -13,23 +13,13 @@ exports.getUnsentNotifications = async (req, res) => {
   const data = await NotificationModel.find({
     sent: false,
   }).exec();
+  for (let i = 0; i < data.length; i++) {
+    await NotificationModel.findByIdAndUpdate(data[i]._id, {
+      sent: true,
+    }).exec();
+  }
   return res.status(200).send({
     message: "Successfully fetched unsent notification",
     notifications: data,
-  });
-};
-
-exports.sendNotification = async (req, res) => {
-  const notificationID = req.params.notificationID;
-  const sent = req.params.sent;
-
-  const data = await NotificationModel.findById(notificationID).exec();
-  if (data.sent !== sent) {
-    data.sent = sent;
-    await data.save();
-  }
-
-  return res.status(200).send({
-    message: "Successfully sent the notification",
   });
 };
