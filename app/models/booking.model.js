@@ -14,26 +14,24 @@ module.exports = ({ Schema, model }) => {
         type: String,
         required: true,
       },
-      laundries: [
-        {
-          regular: {
-            type: Number,
-            required: true,
-          },
-          white: {
-            type: Number,
-            required: true,
-          },
-          maong: {
-            type: Number,
-            required: true,
-          },
-          comforter: {
-            type: Number,
-            required: true,
-          },
+      laundry: {
+        regular: {
+          type: Number,
+          required: true,
         },
-      ],
+        white: {
+          type: Number,
+          required: true,
+        },
+        maong: {
+          type: Number,
+          required: true,
+        },
+        comforter: {
+          type: Number,
+          required: true,
+        },
+      },
       subTotal: {
         type: Number,
         required: true,
