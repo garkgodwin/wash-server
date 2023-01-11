@@ -13,6 +13,7 @@ exports.getUnsentNotifications = async (req, res) => {
   const data = await NotificationModel.find({
     sent: false,
   }).exec();
+
   for (let i = 0; i < data.length; i++) {
     await NotificationModel.findByIdAndUpdate(data[i]._id, {
       sent: true,
