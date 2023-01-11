@@ -72,6 +72,8 @@ exports.updateBooking = async (req, res) => {
     });
   }
 
+  booking.subTotal = body.subTotal;
+  booking.total = body.total;
   booking.paid = body.paid;
   booking.status = body.status;
   await booking.save();
