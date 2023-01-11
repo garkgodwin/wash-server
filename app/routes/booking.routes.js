@@ -11,5 +11,10 @@ module.exports = function (app) {
     controller.getDetailedBooking
   );
   router.post("/book", [authJwt.verifyToken], controller.createBooking);
+  router.put(
+    "/update/:bookingID",
+    [authJwt.verifyToken, authJwt.isAdmin, authJwt.isStaff],
+    controller.updateBooking
+  );
   app.use("/api/v1/bookings", router);
 };

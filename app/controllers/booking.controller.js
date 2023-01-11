@@ -60,3 +60,23 @@ exports.createBooking = async (req, res) => {
     message: "Successfully created a booking.",
   });
 };
+
+exports.updateBooking = async (req, res) => {
+  const body = req.body;
+  const id = req.params.bookingID;
+
+  let booking = await BookingModel.findByid(id);
+  if (!booking) {
+    return res.status(404).send({
+      message: "Booking does not exist.",
+    });
+  }
+
+  booking.paid = body.paid;
+  booking.status = body.status;
+  await booking.save();
+  return res.status(200).send({
+    message: "Successfully updated a booking",
+    data: booking,
+  });
+};
