@@ -4,6 +4,7 @@ const UserModel = db.users;
 
 exports.getBookings = async (req, res) => {
   const loggedUserID = req.userId;
+  console.log("GOT HERE");
   const loggedUser = await UserModel.findById(loggedUserID).exec();
   let filter = {};
   if (loggedUser.role === 1 || loggedUser.role === 2) {

@@ -126,3 +126,17 @@ exports.getUser = async (req, res) => {
     user: user,
   });
 };
+
+exports.getStaffs = async (req, res) => {
+  const id = req.userId;
+
+  const users = await UserModel.find({});
+  const staffs = users.filter((user) => {
+    return user.role === 1 || user.role === 2;
+  });
+
+  return res.status(200).send({
+    message: "Successfully fetched the staffs",
+    staffs: staffs,
+  });
+};

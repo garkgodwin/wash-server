@@ -15,5 +15,11 @@ module.exports = function (app) {
 
   router.post("/login", [check.checkLoginInputs], controller.login);
 
+  router.get(
+    "/staffs",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.getStaffs
+  );
+
   app.use("/api/v1/auth", router);
 };
