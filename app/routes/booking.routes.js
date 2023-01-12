@@ -10,11 +10,7 @@ module.exports = function (app) {
     [authJwt.verifyToken],
     controller.getDetailedBooking
   );
-  router.post(
-    "/book/:customerID",
-    [authJwt.verifyToken],
-    controller.createBooking
-  );
+  router.post("/book", [authJwt.verifyToken], controller.createBooking);
   router.put(
     "/update/:bookingID",
     [authJwt.verifyToken, authJwt.isAdmin, authJwt.isStaff],

@@ -79,15 +79,21 @@ exports.login = async (req, res) => {
 exports.activate = async (req, res) => {
   const body = req.body;
   const id = req.userId;
-  if (body.otp === "" || !body.otp) {
-    return res.status(409).send({
+  console.log(body);
+  if (body.otp === "") {
+    return res.status(402).send({
       message: "Please enter your OTP",
     });
   }
 
   let user = await UserModel.findById(id);
+  if (!user) {
+    return res.status(404).send({
+      message: "User is not found",
+    });
+  }
   if (user.otpActivated !== body.otp) {
-    return res.status(409).send({
+    return res.status(403).send({
       message: "OTP is invalid",
     });
   }

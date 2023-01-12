@@ -28,6 +28,7 @@ exports.getBookings = async (req, res) => {
 };
 
 exports.getDetailedBooking = async (req, res) => {
+  console.log(req.params.bookingID);
   const booking = await BookingModel.findById(req.params.bookingID)
     .populate({
       path: "customer",
@@ -46,16 +47,24 @@ exports.getDetailedBooking = async (req, res) => {
 
 exports.createBooking = async (req, res) => {
   const loggedUserID = req.userId;
-  const customerID = req.params.customerID;
-  console.log(loggedUserID, customerID);
-
   const body = req.body;
-  console.log(body);
-  // const newBooking = BookingModel({
-  //   customer: customerID,
-  //   date: body.date,
-  //   type: body.type,
-  // });
+  const user = await UserModel.findById(body.customer._id);
+  if (!user) {
+    return res.status(404).send({
+      message: "Customer is not found",
+    });
+  }
+
+  const newBooking = BookingModel({
+    customer: user._id,
+    date: body.date,
+    type: body.type,
+    laundry: body.laundry,
+    subTotal: body.subTotal,
+    total: body.total,
+    paid: false,
+    status: 1,
+  });
   await newBooking.save();
   return res.status(200).send({
     message: "Successfully created a booking.",
@@ -66,7 +75,7 @@ exports.updateBooking = async (req, res) => {
   const body = req.body;
   const id = req.params.bookingID;
 
-  let booking = await BookingModel.findByid(id);
+  let booking = await BookingModel.findById(id);
   if (!booking) {
     return res.status(404).send({
       message: "Booking does not exist.",
@@ -80,6 +89,6 @@ exports.updateBooking = async (req, res) => {
   await booking.save();
   return res.status(200).send({
     message: "Successfully updated a booking",
-    data: booking,
+    booking: booking,
   });
 };
