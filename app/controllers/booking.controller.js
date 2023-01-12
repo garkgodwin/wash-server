@@ -46,15 +46,16 @@ exports.getDetailedBooking = async (req, res) => {
 
 exports.createBooking = async (req, res) => {
   const loggedUserID = req.userId;
-  const loggedUser = await UserModel.findById(loggedUserID);
-  if (loggedUser.role === 2) {
-    return res.status(409).send({
-      message: "Staff cannot create bookings",
-    });
-  }
+  const customerID = req.params.customerID;
+  console.log(loggedUserID, customerID);
 
   const body = req.body;
-  const newBooking = BookingModel(body);
+  console.log(body);
+  // const newBooking = BookingModel({
+  //   customer: customerID,
+  //   date: body.date,
+  //   type: body.type,
+  // });
   await newBooking.save();
   return res.status(200).send({
     message: "Successfully created a booking.",

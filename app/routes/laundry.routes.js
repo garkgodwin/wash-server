@@ -9,6 +9,10 @@ module.exports = function (app) {
     [authJwt.verifyToken, authJwt.isAdmin, authJwt.isStaff, authJwt.isStaff],
     controller.getLaundryInfo
   );
-  router.put("/", controller.updateLaundryInfo);
+  router.put(
+    "/",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.updateLaundryInfo
+  );
   app.use("/api/v1/laundries", router);
 };

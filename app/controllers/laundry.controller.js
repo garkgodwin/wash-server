@@ -2,16 +2,15 @@ const db = require("../models");
 const LaundryModel = db.laundries;
 
 exports.getLaundryInfo = async (req, res) => {
-  const infos = await LaundryModel.find({}).exe();
+  const infos = await LaundryModel.find({}).exec();
 
   const info = infos[0];
 
   return res.status(200).send({
     message: "Successfully fetched the laundry info",
-    data: info,
+    laundry: info,
   });
 };
-
 exports.updateLaundryInfo = async (req, res) => {
   const laundryID = req.params.laundryID;
   const b = req.body;

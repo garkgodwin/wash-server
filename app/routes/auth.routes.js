@@ -11,6 +11,7 @@ module.exports = function (app) {
     [check.checkName, check.checkUsername, check.checkMobileNumber],
     controller.register
   );
+  router.put("/activate", [authJwt.verifyToken], controller.activate);
 
   router.post("/login", [check.checkLoginInputs], controller.login);
 

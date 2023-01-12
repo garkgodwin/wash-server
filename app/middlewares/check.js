@@ -44,6 +44,7 @@ exports.checkMobileNumber = async (req, res, next) => {
       .status(409)
       .send({ message: "Please make sure to enter the mobile number." });
   }
+  return next();
   const exists = await UserModel.findOne({
     mobileNumber: body.mobileNumber,
   }).exec();

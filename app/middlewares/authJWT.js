@@ -6,7 +6,6 @@ const User = db.users;
 verifyToken = (req, res, next) => {
   req.isRoleVerified = false;
   let bearerToken = req.header("Authorization");
-  console.log(bearerToken);
   if (
     !bearerToken ||
     (typeof bearerToken === "string" && bearerToken.includes("undefined"))

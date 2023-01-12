@@ -45,6 +45,24 @@ exports.login = async (req, res) => {
     });
   }
 
+  const token = jwt.sign({ id: user._id }, SECRET_KEY, {
+    expiresIn: 86400, // 24hours
+  });
+
+  if (user.otpActivated !== null) {
+    return res.status(200).send({
+      message: "Please enter your OTP to activate your account.",
+      token: token,
+      user: user,
+    });
+  }
+
+  if (body.password === "") {
+    return res.status(409).send({
+      message: "There is no password sent to the server.",
+    });
+  }
+
   const passwordIsValid = bcrypt.compareSync(body.password, user.password);
   if (!passwordIsValid) {
     return res.status(409).send({
@@ -52,19 +70,38 @@ exports.login = async (req, res) => {
     });
   }
 
-  const token = jwt.sign({ id: user._id }, SECRET_KEY, {
-    expiresIn: 86400, // 24hours
+  return res.status(200).send({
+    message: "Login successfull",
+    token: token,
+    user: user,
   });
+};
+exports.activate = async (req, res) => {
+  const body = req.body;
+  const id = req.userId;
+  if (body.otp === "" || !body.otp) {
+    return res.status(409).send({
+      message: "Please enter your OTP",
+    });
+  }
+
+  let user = await UserModel.findById(id);
+  if (user.otpActivated !== body.otp) {
+    return res.status(409).send({
+      message: "OTP is invalid",
+    });
+  }
+
+  user.otpActivated = null;
+  await user.save();
 
   return res.status(200).send({
-    message: "Login successful",
-    token: token,
+    message: "Your otp is valid, account is now activated",
     user: user,
   });
 };
 
 exports.getUser = async (req, res) => {
-  console.log("GOT HERE CONTROLLER");
   const id = req.userId;
   if (!id) {
     return res.status(404).send({
@@ -78,7 +115,6 @@ exports.getUser = async (req, res) => {
       message: "User is not found",
     });
   }
-  console.log(user);
   return res.status(200).send({
     message: "Successfully fetched your profile info",
     user: user,
