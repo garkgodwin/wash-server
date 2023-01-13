@@ -4,7 +4,6 @@ const UserModel = db.users;
 
 exports.getBookings = async (req, res) => {
   const loggedUserID = req.userId;
-  console.log("GOT HERE");
   const loggedUser = await UserModel.findById(loggedUserID).exec();
   let filter = {};
   if (loggedUser.role === 1 || loggedUser.role === 2) {
@@ -56,6 +55,12 @@ exports.createBooking = async (req, res) => {
     });
   }
 
+  const newNotif = NotificationModel({
+    body: `A booked laundry has been created for you`,
+    mobileNumber: user.mobileNumber,
+  });
+  await newNotif.save();
+
   const newBooking = BookingModel({
     customer: user._id,
     date: body.date,
@@ -76,7 +81,9 @@ exports.updateBooking = async (req, res) => {
   const body = req.body;
   const id = req.params.bookingID;
 
-  let booking = await BookingModel.findById(id);
+  let booking = await BookingModel.findById(id).populate({
+    path: "customer",
+  });
   if (!booking) {
     return res.status(404).send({
       message: "Booking does not exist.",
@@ -88,6 +95,26 @@ exports.updateBooking = async (req, res) => {
   booking.paid = body.paid;
   booking.status = body.status;
   await booking.save();
+
+  const s = body.status;
+  const stats =
+    s === 1
+      ? "Your booked laundry has been picked up."
+      : s === 2
+      ? "Your booked laundry is now being washed."
+      : s === 3
+      ? "Your laundry is now being prepared for delivery."
+      : s === 4
+      ? "Your laundry is now out for delivery."
+      : s === 5
+      ? "Your laundry is now delivered."
+      : "";
+  const newNotif = NotificationModel({
+    body: stats,
+    mobileNumber: booking.customer.mobileNumber,
+  });
+  await newNotif.save();
+
   return res.status(200).send({
     message: "Successfully updated a booking",
     booking: booking,
