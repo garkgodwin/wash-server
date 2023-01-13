@@ -1,6 +1,7 @@
 const db = require("../models");
 const BookingModel = db.bookings;
 const UserModel = db.users;
+const NotificationModel = db.notifications;
 
 exports.getBookings = async (req, res) => {
   const loggedUserID = req.userId;
